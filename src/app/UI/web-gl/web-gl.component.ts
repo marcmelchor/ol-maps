@@ -4,6 +4,8 @@ import { OSM, TileWMS } from 'ol/source';
 import WebGLTileLayer from 'ol/layer/WebGLTile';
 
 import { environment } from '../../../environments/environment';
+import RenderEvent from 'ol/render/Event';
+import { Style } from 'ol/style';
 
 @Component({
   selector: 'app-web-gl',
@@ -11,17 +13,22 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./web-gl.component.scss']
 })
 export class WebGlComponent implements OnInit {
+  style: Style | any = {
+    filter: [ '==', [ 'get', 'layer' ], 'WebGLTileLayer' ],
+    contrast: -0.5,
+  };
   map: Map = new Map();
   webGLTileLayer: WebGLTileLayer = new WebGLTileLayer({
     source: new TileWMS({
-      url: `https://{a-d}-mapcache-at.ubimet.com/${environment.ubimetKey}/`,
+      url: `${ environment.ubimetLink }${ environment.ubimetKey }/`,
       params: {
         'LAYERS': environment.ubimetLayer,
-        'time': '2023-09-21T18:45:00Z'
+        'time': '2023-09-21T18:45:00Z',
       },
       serverType: 'mapserver',
       // crossOrigin: 'anonymous'
     }),
+    style: this.style
   });
 
   ngOnInit(): void {
