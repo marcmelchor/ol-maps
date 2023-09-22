@@ -1,5 +1,6 @@
 {
   "name": "map-app",
+  "description": "This is a sample app where you can put in practice the library OpenLayers",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
